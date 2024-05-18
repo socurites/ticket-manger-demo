@@ -1,11 +1,11 @@
-package com.socurites.tmdemo
+package com.socurites.issueservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class TicketMangerDemoApplication
+class IssueServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<TicketMangerDemoApplication>(*args)
+    runApplication<IssueServiceApplication>(*args)
 }
