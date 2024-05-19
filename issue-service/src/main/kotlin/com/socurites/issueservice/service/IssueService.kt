@@ -2,6 +2,7 @@ package com.socurites.issueservice.service
 
 import com.socurites.issueservice.domain.Issue
 import com.socurites.issueservice.domain.IssueRepository
+import com.socurites.issueservice.domain.IssueStatus
 import com.socurites.issueservice.service.model.IssueRequest
 import com.socurites.issueservice.service.model.IssueResponse
 import org.springframework.stereotype.Service
@@ -24,4 +25,8 @@ class IssueService(
 
         return IssueResponse(issueRepository.save(issue))
     }
+
+    @Transactional(readOnly = true)
+    fun getAll(status: IssueStatus) = issueRepository.findAllByStatusOrderByCreatedAtDesc(status)
+        ?.map {IssueResponse(it)}
 }
