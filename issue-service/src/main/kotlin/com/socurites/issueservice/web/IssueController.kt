@@ -3,8 +3,8 @@ package com.socurites.issueservice.web
 import com.socurites.issueservice.config.AuthUser
 import com.socurites.issueservice.domain.IssueStatus
 import com.socurites.issueservice.service.IssueService
-import com.socurites.issueservice.service.model.IssueRequest
-import com.socurites.issueservice.service.model.IssueResponse
+import com.socurites.issueservice.model.IssueRequest
+import com.socurites.issueservice.model.IssueResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping

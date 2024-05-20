@@ -4,8 +4,8 @@ import com.socurites.issueservice.domain.Issue
 import com.socurites.issueservice.domain.IssueRepository
 import com.socurites.issueservice.domain.IssueStatus
 import com.socurites.issueservice.exception.NotFoundException
-import com.socurites.issueservice.service.model.IssueRequest
-import com.socurites.issueservice.service.model.IssueResponse
+import com.socurites.issueservice.model.IssueRequest
+import com.socurites.issueservice.model.IssueResponse
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -30,7 +30,7 @@ class IssueService(
 
     @Transactional(readOnly = true)
     fun getAll(status: IssueStatus) = issueRepository.findAllByStatusOrderByCreatedAtDesc(status)
-        ?.map {IssueResponse(it)}
+        ?.map { IssueResponse(it) }
 
     @Transactional(readOnly = true)
     fun get(id: Long): IssueResponse {

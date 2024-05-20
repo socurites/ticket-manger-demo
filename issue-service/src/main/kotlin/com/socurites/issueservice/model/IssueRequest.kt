@@ -1,4 +1,4 @@
-package com.socurites.issueservice.service.model
+package com.socurites.issueservice.model
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.socurites.issueservice.domain.Issue
