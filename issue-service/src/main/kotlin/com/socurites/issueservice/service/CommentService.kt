@@ -30,4 +30,14 @@ class CommentService(
         issue.comments.add(comment)
         return commentRepository.save(comment).toResponse()
     }
+
+    @Transactional
+    fun update(id: Long, userId: Long, request: CommentRequest): CommentResponse {
+        val comment = commentRepository.findByIdAndUserId(id, userId) ?: throw NotFoundException("댓글이 존재하지 않습니다")
+
+        return comment.run {
+            body = request.body
+            commentRepository.save(this).toResponse()
+        }
+    }
 }
