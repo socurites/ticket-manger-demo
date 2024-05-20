@@ -1,10 +1,7 @@
-package com.socurites.issueservice.service.model
+package com.socurites.issueservice.model
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.socurites.issueservice.domain.Issue
-import com.socurites.issueservice.domain.IssuePriority
-import com.socurites.issueservice.domain.IssueStatus
-import com.socurites.issueservice.domain.IssueType
+import com.socurites.issueservice.domain.*
 import java.time.LocalDateTime
 
 data class IssueRequest(
@@ -20,6 +17,7 @@ data class IssueResponse(
     val summary: String,
     val description: String,
     val userId: Long,
+    val comments: List<CommentResponse> = emptyList(),
     val type: IssueType,
     val priority: IssuePriority,
     val status: IssueStatus,
@@ -35,6 +33,7 @@ data class IssueResponse(
                 summary = issue.summary,
                 description = issue.description,
                 userId = issue.userId,
+                comments = issue.comments.sortedByDescending(Comment::id).map(Comment::toResponse),
                 type = issue.type,
                 priority = issue.priority,
                 status = issue.status,

@@ -7,3 +7,7 @@
 
 ### 실습 예제
 * 실무 프로젝트로 배우는 Kotlin & Spring, 패스트 캠퍼스
+
+## Quick Notes
+### Scope 함수
+![img.png](img.png)

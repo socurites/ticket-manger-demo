@@ -12,6 +12,10 @@ class Issue (
     @Column
     var userId: Long,
 
+    @OneToMany(fetch = FetchType.EAGER)
+    var comments: MutableList<Comment> = mutableListOf(),
+
+
     @Column
     var summary: String,
 
