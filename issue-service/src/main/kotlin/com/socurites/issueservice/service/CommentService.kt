@@ -40,4 +40,17 @@ class CommentService(
             commentRepository.save(this).toResponse()
         }
     }
+
+    @Transactional
+    fun delete(issueId: Long, id: Long, userId: Long) {
+        val comment = commentRepository.findByIdAndUserId(id, userId) ?: throw NotFoundException("댓글이 존재하지 않습니다")
+        // 아래는 에러 발생
+        // error:  SQL [delete from comment where id=?]; constraint ["FKTJG467PSBEI20VCI3SFN9IAK: PUBLIC.ISSUE_COMMENTS FOREIGN KEY(COMMENTS_ID) REFERENCES PUBLIC.COMMENT(ID) (CAST(1 AS BIGINT))"
+        // commentRepository.deleteById(id)
+
+        val issue = issueRepository.findByIdOrNull(issueId) ?: throw NotFoundException("이슈가 존재하지 않습니다")
+        issue.comments.remove(comment)
+
+        commentRepository.deleteById(id)
+    }
 }
