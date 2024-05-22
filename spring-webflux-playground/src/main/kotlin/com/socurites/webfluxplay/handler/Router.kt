@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.RouterFunctions.route
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.router
 
 @Configuration
 class Router {
@@ -13,4 +14,18 @@ class Router {
         route()
             .GET("/", handler::sayHello)
             .build()
+
+    @Bean
+    fun userRouter(handler: UserHandler): RouterFunction<ServerResponse> =
+//        route()
+//            .GET("/users/{id}", handler::getUser)
+//            .GET("/users", handler::getAll)
+//            .build()
+
+        router {
+            "/users".nest {
+                GET("/{id}", handler::getUser)
+                GET("", handler::getAll)
+            }
+        }
 }
