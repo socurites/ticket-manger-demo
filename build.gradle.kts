@@ -6,6 +6,8 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
     kotlin("plugin.jpa") version "1.9.23"
+
+    kotlin("kapt") version "2.0.0"
 }
 
 java {
@@ -25,6 +27,7 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "kotlin-spring")
     apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "kotlin-kapt")
 
     dependencies {
         // kotlin
