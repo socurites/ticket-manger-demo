@@ -1,2 +1,8 @@
 server:
   port: 9090
+
+jwt:
+  issuer: tmd
+  subject: auth
+  expires-seconds: 3600
+  secret: my-secret
