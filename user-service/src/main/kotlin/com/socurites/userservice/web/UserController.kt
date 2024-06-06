@@ -1,5 +1,7 @@
 package com.socurites.userservice.web
 
+import com.socurites.userservice.model.SignInRequest
+import com.socurites.userservice.model.SignInResponse
 import com.socurites.userservice.model.SignUpRequest
 import com.socurites.userservice.service.UserService
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,5 +17,10 @@ class UserController(
     @PostMapping("/signup")
     suspend fun signUp(@RequestBody request: SignUpRequest) {
         userService.signUp(request)
+    }
+
+    @PostMapping("/signin")
+    suspend fun signIn(@RequestBody request: SignInRequest): SignInResponse {
+        return userService.siginIn(request)
     }
 }
