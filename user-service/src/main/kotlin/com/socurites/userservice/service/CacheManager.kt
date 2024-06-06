@@ -16,6 +16,10 @@ class CacheManager<T> {
         localCache.put(key, CacheWrapper(cached = value, ttl=Instant.now().plusMillis(ttl.toMillis())))
     }
 
+    fun awaitEvict(token: String) {
+        localCache.remove(token)
+    }
+
     data class CacheWrapper<T>(
         val cached: T,
         val ttl: Instant,
