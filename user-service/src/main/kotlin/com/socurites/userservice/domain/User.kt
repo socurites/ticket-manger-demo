@@ -4,20 +4,20 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "users")
-class User (
+data class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @Column
-    val email: String,
+    var email: String,
 
     @Column
-    val password: String,
+    var password: String,
 
     @Column
-    val username: String,
+    var username: String,
 
     @Column
-    val profileUrl: String? = null,
+    var profileUrl: String? = null,
 ): BaseEntity()

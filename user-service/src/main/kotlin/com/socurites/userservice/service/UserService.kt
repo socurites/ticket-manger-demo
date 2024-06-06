@@ -15,12 +15,18 @@ import com.socurites.userservice.utils.JWTUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.springframework.stereotype.Service
+import java.time.Duration
 
 @Service
 class UserService(
     private val userRepository: UserRepository,
     private val jwtProperties: JWTProperties,
+    private val cacheManager: CacheManager<User>,
 ) {
+    companion object {
+        private val CACHE_TTL = Duration.ofMinutes(1)
+    }
+
     suspend fun signUp(signUpRequest: SignUpRequest) {
         with(signUpRequest) {
             userRepository.findByEmail(email)?.let {
@@ -54,6 +60,7 @@ class UserService(
             )
 
             val token = JWTUtils.createToken(jwtClaim, jwtProperties)
+            cacheManager.awaitPut(key = token, value = this.copy().apply { password = "" }, ttl = CACHE_TTL)
 
             return SignInResponse(
                 email = email,
