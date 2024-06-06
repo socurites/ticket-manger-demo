@@ -1,3 +1,5 @@
+apply(plugin = "kotlin-jpa")
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
 }

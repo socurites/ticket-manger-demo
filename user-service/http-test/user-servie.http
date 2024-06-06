@@ -1,0 +1,22 @@
+###
+POST http://localhost:9090/api/v1/users/signup
+Content-Type: application/json
+
+{
+  "email": "socurites@gmail.com",
+  "password": "1234",
+  "username": "socurites"
+}
+
+###
+POST http://localhost:9090/api/v1/users/signin
+Content-Type: application/json
+
+{
+  "email": "socurites@gmail.com",
+  "password": "1234"
+}
+
+###
+DELETE http://localhost:9090/api/v1/users/signout
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoIiwiaXNzIjoidG1kIiwiZXhwIjoxNzE3NjY1MjIyLCJpYXQiOjE3MTc2NjE2MjIsInVzZXJJZCI6MSwiZW1haWwiOiJzb2N1cml0ZXNAZ21haWwuY29tIiwidXNlcm5hbWUiOiJzb2N1cml0ZXMifQ.VvqPp5V-9QbtJtKD0NiRmL4mM3pot3lI_-zugCS9PRw
