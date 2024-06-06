@@ -1,5 +1,6 @@
 package com.socurites.userservice.service
 
+import com.socurites.userservice.exception.UserNotFoundException
 import org.springframework.stereotype.Component
 import java.time.Duration
 import java.time.Instant
@@ -16,8 +17,22 @@ class CacheManager<T> {
         localCache.put(key, CacheWrapper(cached = value, ttl=Instant.now().plusMillis(ttl.toMillis())))
     }
 
-    fun awaitEvict(token: String) {
+    suspend fun awaitEvict(token: String) {
         localCache.remove(token)
+    }
+
+    suspend fun awaitGetOrPut(key: String, ttl: Duration, supplier: suspend () -> T): T {
+        var cached = localCache[key] ?: throw UserNotFoundException()
+
+        if ( Instant.now().isAfter(cached.ttl)) {
+            awaitEvict(key)
+            awaitPut(key, supplier(), ttl)
+        }
+        cached = localCache[key]!!
+
+
+        checkNotNull(cached.cached)
+        return cached.cached
     }
 
     data class CacheWrapper<T>(

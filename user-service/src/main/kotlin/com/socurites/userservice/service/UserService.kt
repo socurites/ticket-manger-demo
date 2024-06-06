@@ -4,6 +4,7 @@ import com.socurites.userservice.config.JWTProperties
 import com.socurites.userservice.domain.User
 import com.socurites.userservice.domain.repository.UserRepository
 import com.socurites.userservice.exception.PassswordNotMatchedException
+import com.socurites.userservice.exception.UnauthorizedException
 import com.socurites.userservice.exception.UserExistsException
 import com.socurites.userservice.exception.UserNotFoundException
 import com.socurites.userservice.model.SignInRequest
@@ -14,6 +15,7 @@ import com.socurites.userservice.utils.JWTClaim
 import com.socurites.userservice.utils.JWTUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.Duration
 
@@ -60,7 +62,7 @@ class UserService(
             )
 
             val token = JWTUtils.createToken(jwtClaim, jwtProperties)
-            cacheManager.awaitPut(key = token, value = this.copy().apply { password = "" }, ttl = CACHE_TTL)
+            cacheManager.awaitPut(key = token, value = this, ttl = CACHE_TTL)
 
             return SignInResponse(
                 email = email,
@@ -72,5 +74,19 @@ class UserService(
 
     suspend fun signOut(token: String) {
         cacheManager.awaitEvict(token)
+    }
+
+    suspend fun getByToken(token: String): User {
+        return cacheManager.awaitGetOrPut(key = token, ttl = CACHE_TTL) {
+            val decodedJWT = JWTUtils.decode(token, jwtProperties.secret, jwtProperties.issuer)
+
+            val userId = decodedJWT.claims["userId"]?.asLong() ?: throw UnauthorizedException()
+            get(userId)
+
+        }
+    }
+
+    suspend fun get(userId: Long): User {
+        return userRepository.findByIdOrNull(userId) ?: throw UserNotFoundException()
     }
 }
