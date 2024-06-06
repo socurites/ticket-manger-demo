@@ -1,6 +1,7 @@
 ###
 POST http://localhost:8080/api/v1/issues
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoIiwiaXNzIjoidG1kIiwiZXhwIjoxNzE3NjcxMjQzLCJpYXQiOjE3MTc2Njc2NDMsInVzZXJJZCI6MSwiZW1haWwiOiJzb2N1cml0ZXNAZ21haWwuY29tIiwidXNlcm5hbWUiOiJzb2N1cml0ZXMifQ.n6dhLFKtlx5j8l4vv8TOgllLylhE2Qr0vNVQbEl97L8
 
 {
   "summary": "테스트",
@@ -12,6 +13,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/api/v1/issues
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoIiwiaXNzIjoidG1kIiwiZXhwIjoxNzE3NjcxMjQzLCJpYXQiOjE3MTc2Njc2NDMsInVzZXJJZCI6MSwiZW1haWwiOiJzb2N1cml0ZXNAZ21haWwuY29tIiwidXNlcm5hbWUiOiJzb2N1cml0ZXMifQ.n6dhLFKtlx5j8l4vv8TOgllLylhE2Qr0vNVQbEl97L8
 
 ###
 GET http://localhost:8080/api/v1/issues/1
